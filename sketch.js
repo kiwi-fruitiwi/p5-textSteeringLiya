@@ -19,7 +19,7 @@ let font
 let vehicles = []
 let points = []
 
-let fft, peakDetect
+let amp
 
 
 function preload() {
@@ -54,11 +54,7 @@ function setup() {
         vehicles.push(vehicle)
     }
 
-
-    /** p5.PeakDetect requires a p5.FFT */
-    fft = new p5.FFT()
-    // peakDetect = new p5.PeakDetect(20, 20, .35, 20)
-    peakDetect = new p5.PeakDetect()
+    amp = new p5.Amplitude()
 }
 
 
@@ -73,20 +69,16 @@ function draw() {
         v.show()
     }
 
-    /** peakDetect accepts an FFT post-analysis */
-    fft.analyze();
-    peakDetect.update(fft);
+    let level = amp.getLevel();
+    let size = map(level, 0, 1, 5, 50);
 
-    const grow = (pt) => {
-        pt.r = 20
+    /* adjust the vehicle's radius */
+    const grow = (pt, radius) => {
+        pt.r = radius
     }
 
-    if ( peakDetect.isDetected ) {
-        /* tell every dot to be bigger when a peak is detected */
-        for (let v of vehicles) {
-            grow(v)
-        }
-        console.log("detected")
+    for (let v of vehicles) {
+        grow(v, size)
     }
 }
 
