@@ -36,7 +36,6 @@ function preload() {
 function setup() {
     createCanvas(600, 300)
     colorMode(HSB, 360, 100, 100, 100)
-    background(0, 0, 30)
 
     textAlign(CENTER, CENTER);
     /**
@@ -66,7 +65,7 @@ function setup() {
 
 
 function draw() {
-    background(0, 0, 0)
+    background(236, 37, 25)
 
     /** display all points and behaviors */
     for (let i = 0; i < vehicles.length; i++) {
