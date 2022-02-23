@@ -11,6 +11,9 @@
  *      → seek original text places
  *      → by cody, 2.22, 2💖22 at time=2222
  *      cody and winry's voices saying happy birthday Liya!
+ *
+ *  Liya can't read. so maybe we should have "2" instead of hb o.O
+ *  can we figure out how to make her shirt programmatically?
  */
 
 
@@ -20,11 +23,13 @@ let vehicles = []
 let points = []
 
 let amp
+let arrival // flag for whether 'going home' is turned on
 
 
 function preload() {
     font = loadFont('data/bpdots.otf')
-    song = loadSound('data/popstars.mp3', null, null)
+    // font = loadFont('data/consola.ttf')
+    song = loadSound('data/danielTiger.mp3', null, null)
 }
 
 
@@ -33,6 +38,7 @@ function setup() {
     colorMode(HSB, 360, 100, 100, 100)
     background(0, 0, 30)
 
+    textAlign(CENTER, CENTER);
     /**
      *  Add two sets of points: happy birthday, and Liya! centered below.
      *  TODO: gain an additional parameter: size. map to all points?
@@ -55,22 +61,27 @@ function setup() {
     }
 
     amp = new p5.Amplitude()
+    arrival = false
 }
 
 
 function draw() {
-    background(0, 0, 30)
+    background(0, 0, 0)
 
     /** display all points and behaviors */
     for (let i = 0; i < vehicles.length; i++) {
         let v = vehicles[i]
-        v.behaviors()
+        v.fleeFromMouse()
         v.update()
+        v.wrap()
         v.show()
+
+        if (arrival)
+            v.returnToTextOrigin()
     }
 
     let level = amp.getLevel();
-    let size = map(level, 0, 1, 5, 50);
+    let size = map(level, 0, 1, 2, 120);
 
     /* adjust the vehicle's radius */
     const grow = (pt, radius) => {
@@ -93,6 +104,24 @@ function keyPressed() {
     if (key === 'z') {
         noLoop()
         song.stop()
+    }
+
+    /* arrival! +recolor */
+    if (key === 'x') {
+        arrival = true
+
+        for (let index in vehicles) {
+            vehicles[index].hue = map(index, 0, vehicles.length, 0, 330)
+            vehicles[index].r = 2
+            vehicles[index].showText = false
+        }
+    }
+
+    /* recolor in ascending rainbow :p */
+    if (key === 'c') {
+        for (let index in vehicles) {
+            vehicles[index].hue = index
+        }
     }
 }
 
