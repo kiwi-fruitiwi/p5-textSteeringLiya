@@ -4,7 +4,8 @@ class Vehicle {
         // this.pos = createVector(x, y)
         this.vel = p5.Vector.random2D()
         this.acc = new p5.Vector()
-        this.r = 8
+        this.rOriginal = 5
+        this.r = 5
         this.target = new p5.Vector(x, y)
         this.maxspeed = 15
         this.maxforce = 1
@@ -80,6 +81,10 @@ class Vehicle {
         // point(this.pos.x, this.pos.y)
         noStroke()
         fill(0, 0, 100, 50)
-        circle(this.pos.x, this.pos.y, 5)
+        circle(this.pos.x, this.pos.y, this.r)
+
+        if (this.r > this.rOriginal) {
+            this.r *= 0.9
+        }
     }
 }
