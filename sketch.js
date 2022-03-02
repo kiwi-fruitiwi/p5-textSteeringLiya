@@ -14,6 +14,18 @@
  *
  *  Liya can't read. so maybe we should have "2" instead of hb o.O
  *  can we figure out how to make her shirt programmatically?
+ *
+ *  cut theme song to original length
+ *  beat map into array of millisecond values
+ *      when we exceed one, adjust dot size and move to next
+ *      🌟 text conversion from one set of words to another
+ *      explosion by setting home point with random
+ *      generate new random points mid-animation → arrive at new word
+ *          "happy twosday!"
+ *          "and birthday!"
+ *          "second binary digit!"
+ *          "Liya!" +heart with manual points, floating two balloons
+ * [optional] gravitation on click
  */
 
 
@@ -36,7 +48,6 @@ function preload() {
 function setup() {
     createCanvas(600, 300)
     colorMode(HSB, 360, 100, 100, 100)
-
     textAlign(CENTER, CENTER);
     /**
      *  Add two sets of points: happy birthday, and Liya! centered below.
@@ -66,7 +77,6 @@ function setup() {
 
 function draw() {
     background(236, 37, 25)
-
     /** display all points and behaviors */
     for (let i = 0; i < vehicles.length; i++) {
         let v = vehicles[i]
